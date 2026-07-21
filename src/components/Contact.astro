@@ -1,4 +1,11 @@
 ---
+import { socials } from '../data/socials';
+
+const philosophy = {
+  architecture: 'Scalable, resilient, and transparent',
+  code: 'Treat syntax as communication. Clarity over cleverness.',
+  execution: 'Performant by default.',
+};
 ---
 
 <section class="py-24 border-t border-surface-variant grid grid-cols-1 md:grid-cols-12 gap-gutter" id="contact">
@@ -32,19 +39,19 @@
           <div class="flex gap-sm">
             <span class="text-outline-variant select-none w-8 text-right">04</span>
             <span class="text-on-surface pl-md">
-              "architecture": <span class="text-tertiary">"Scalable, resilient, and transparent"</span>,
+              "architecture": <span class="text-tertiary">"{philosophy.architecture}"</span>,
             </span>
           </div>
           <div class="flex gap-sm">
             <span class="text-outline-variant select-none w-8 text-right">05</span>
             <span class="text-on-surface pl-md">
-              "code": <span class="text-tertiary">"Treat syntax as communication. Clarity over cleverness."</span>,
+              "code": <span class="text-tertiary">"{philosophy.code}"</span>,
             </span>
           </div>
           <div class="flex gap-sm">
             <span class="text-outline-variant select-none w-8 text-right">06</span>
             <span class="text-on-surface pl-md">
-              "execution": <span class="text-tertiary">"Performant by default."</span>
+              "execution": <span class="text-tertiary">"{philosophy.execution}"</span>
             </span>
           </div>
           <div class="flex gap-sm">

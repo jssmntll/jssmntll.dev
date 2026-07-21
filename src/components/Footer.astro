@@ -1,12 +1,7 @@
 ---
-const currentYear = new Date().getFullYear();
+import { socials } from '../data/socials';
 
-const socialLinks = [
-  { name: 'GitHub', href: '#' },
-  { name: 'LinkedIn', href: '#' },
-  { name: 'Documentation', href: '#' },
-  { name: 'StackOverflow', href: '#' },
-];
+const currentYear = new Date().getFullYear();
 ---
 
 <footer class="bg-surface-dim border-t border-surface-variant flex flex-col md:flex-row justify-between items-center w-full px-md py-lg max-w-container-max mx-auto mt-auto">
@@ -14,12 +9,14 @@ const socialLinks = [
     &copy; {currentYear} Built with Astro &amp; Tailwind.css
   </div>
   <div class="flex gap-md font-mono text-mono-label text-on-surface-variant">
-    {socialLinks.map((link) => (
+    {socials.map((social) => (
       <a
         class="hover:text-secondary hover:underline decoration-secondary transition-all"
-        href={link.href}
+        href={social.href}
+        target="_blank"
+        rel="noopener noreferrer"
       >
-        {link.name}
+        {social.name}
       </a>
     ))}
   </div>
