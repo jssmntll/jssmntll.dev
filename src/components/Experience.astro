@@ -9,37 +9,90 @@ const experiences = (await getCollection('experience'));
     <h1 class="font-headline text-headline-xl-mobile md:text-headline-xl text-on-surface mb-sm">
       [ Experience_Log ]
     </h1>
-    <p class="font-body text-body-lg text-on-surface-variant max-w-2xl">
+    <p class="font-mono text-mono-code text-on-surface-variant max-w-2xl">
       Career trajectory and professional milestones across systems and backend engineering.
     </p>
   </header>
 
-  <div class="relative border-l-2 border-surface-variant ml-4 md:ml-0 md:pl-8 space-y-xl">
-    {experiences.map((exp) => (
-      <div class="relative">
-        <div class:list={[
-          'absolute -left-[1.6rem] md:-left-[2.3rem] top-1 w-4 h-4 rounded-full border-2',
+  <div class="space-y-md">
+    {experiences.map((exp, i) => (
+      <article
+        class:list={[
+          'exp-entry relative rounded-lg border overflow-hidden transition-all duration-500',
           exp.data.current
-            ? 'bg-tertiary border-tertiary'
-            : 'bg-surface-container-high border-surface-variant',
-        ]}></div>
+            ? 'bg-surface-container-high border-tertiary/30 shadow-[0_0_20px_rgba(77,224,130,0.08)]'
+            : 'bg-surface-container-low border-surface-variant hover:border-outline-variant',
+        ]}
+        style={`animation-delay: ${i * 100}ms`}
+      >
+        {exp.data.current && (
+          <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-tertiary via-secondary to-tertiary"></div>
+        )}
 
-        <div class="glass-card rounded-lg p-md border border-surface-variant transition-all duration-300 terminal-glow">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-xs mb-sm">
-            <div>
-              <h2 class="font-headline text-headline-md text-on-surface">{exp.data.role}</h2>
-              <span class="font-mono text-mono-label text-secondary">{exp.data.company}</span>
-            </div>
-            <div class="flex items-center gap-xs">
-              {exp.data.current && (
-                <span class="font-mono text-caption text-tertiary bg-tertiary-container px-xs py-base rounded-full">current</span>
-              )}
-              <span class="font-mono text-mono-label text-on-surface-variant">{exp.data.period}</span>
-            </div>
+        <div class:list={[
+          'flex flex-col md:flex-row gap-md p-md',
+          exp.data.current ? 'md:items-start' : 'md:items-center',
+        ]}>
+          <div class="flex items-center gap-sm md:w-48 shrink-0">
+            <div class:list={[
+              'w-2 h-2 rounded-full shrink-0',
+              exp.data.current ? 'bg-tertiary animate-pulse' : 'bg-surface-variant',
+            ]}></div>
+            <span class="font-mono text-mono-label text-on-surface-variant whitespace-nowrap">{exp.data.period}</span>
           </div>
-          <p class="font-body text-body-md text-on-surface-variant">{exp.body}</p>
+
+          <div class="flex-grow">
+            <div class="flex flex-col md:flex-row md:items-center gap-xs mb-sm">
+              <h2 class="font-headline text-headline-md text-on-surface">{exp.data.role}</h2>
+              <span class:list={[
+                'font-mono text-mono-label',
+                exp.data.current ? 'text-secondary' : 'text-primary-fixed-dim',
+              ]}>@ {exp.data.company}</span>
+            </div>
+
+            <p class:list={[
+              'font-body text-body-md leading-relaxed',
+              exp.data.current ? 'text-on-surface' : 'text-on-surface-variant',
+            ]}>{exp.body}</p>
+
+            {exp.data.current && (
+              <div class="flex items-center gap-xs mt-sm">
+                <span class="material-symbols-outlined text-xs text-tertiary">terminal</span>
+                <span class="font-mono text-caption text-tertiary">active process</span>
+              </div>
+            )}
+          </div>
+
+          <div class:list={[
+            'hidden md:flex items-center justify-center w-20 h-20 rounded border shrink-0',
+            exp.data.current
+              ? 'border-tertiary/30 bg-tertiary/5'
+              : 'border-surface-variant bg-surface-container-lowest',
+          ]}>
+            <span class:list={[
+              'font-mono text-xs',
+              exp.data.current ? 'text-tertiary' : 'text-on-surface-variant',
+            ]}>
+              {String(experiences.length - i).padStart(2, '0')}
+            </span>
+          </div>
         </div>
-      </div>
+      </article>
     ))}
   </div>
 </section>
+
+<style>
+  .exp-entry {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: revealEntry 0.5s ease-out forwards;
+  }
+
+  @keyframes revealEntry {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
