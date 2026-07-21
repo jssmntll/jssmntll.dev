@@ -1,0 +1,34 @@
+---
+const navLinks = [
+  { href: '#home', label: '/home', active: true },
+  { href: '#projects', label: '/projects', active: false },
+  { href: '#skills', label: '/skills', active: false },
+  { href: '#contact', label: '/contact', active: false },
+];
+---
+
+<header class="bg-primary-container border-b border-surface-variant flex justify-between items-center w-full px-md py-xs max-w-container-max mx-auto top-0 z-50 sticky">
+  <div class="font-headline text-headline-md font-bold text-secondary">
+    [dev_root]
+  </div>
+  <nav class="hidden md:flex gap-md font-mono text-mono-label">
+    {navLinks.map((link) => (
+      <a
+        href={link.href}
+        class:list={[
+          'border-b-2 pb-1 transition-all duration-200',
+          link.active
+            ? 'text-secondary border-secondary drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]'
+            : 'text-on-primary-container hover:text-tertiary border-transparent',
+        ]}
+      >
+        {link.label}
+      </a>
+    ))}
+  </nav>
+  <div class="hidden md:flex items-center">
+    <span class="material-symbols-outlined text-on-primary-container hover:text-secondary cursor-pointer transition-colors">
+      terminal
+    </span>
+  </div>
+</header>
