@@ -1,0 +1,158 @@
+---
+const projects = [
+  {
+    id: '01',
+    title: 'High-Throughput API Gateway',
+    icon: 'architecture',
+    description: 'A custom API gateway engineered for extreme low latency, handling request routing, rate limiting, and authentication at scale.',
+    tags: [
+      { name: 'Go', color: 'tertiary' },
+      { name: 'Redis', color: 'secondary' },
+      { name: 'gRPC', color: 'primary-fixed-dim' },
+      { name: 'Docker', color: 'inverse-surface' },
+    ],
+    stats: [
+      { label: 'Latency Reduction', value: '-40%', color: 'tertiary', width: '40%' },
+      { label: 'Throughput', value: '100k+ RPM', color: 'secondary' },
+    ],
+    links: ['GitHub', 'Docs'],
+    span: '',
+  },
+  {
+    id: '02',
+    title: 'Distributed Task Queue',
+    icon: 'account_tree',
+    description: 'A fault-tolerant distributed task queue designed for asynchronous background processing, ensuring reliable execution across multiple nodes with automatic retry mechanisms and dynamic scaling based on queue depth.',
+    tags: [
+      { name: 'Rust', color: 'tertiary' },
+      { name: 'Kafka', color: 'secondary' },
+      { name: 'PostgreSQL', color: 'primary-fixed-dim' },
+    ],
+    stats: [
+      { label: 'Uptime', value: '99.99%', color: 'tertiary', width: '99%' },
+      { label: 'Job Processing', value: '5M+/day', color: 'secondary' },
+      { label: 'Failover Time', value: '< 2s', color: 'secondary' },
+    ],
+    links: ['GitHub', 'Docs'],
+    span: 'lg:col-span-2',
+    twoCol: true,
+  },
+  {
+    id: '03',
+    title: 'Real-time Analytics Engine',
+    icon: 'monitoring',
+    description: 'Pipeline for processing and visualizing streaming telemetry data with sub-second latency.',
+    tags: [
+      { name: 'Python', color: 'tertiary' },
+      { name: 'ClickHouse', color: 'secondary' },
+      { name: 'Grafana', color: 'primary-fixed-dim' },
+    ],
+    stats: [
+      { label: 'Query Speed', value: '< 50ms', color: 'tertiary', width: '85%' },
+      { label: 'Data Volume', value: '2TB/day', color: 'secondary' },
+    ],
+    links: ['GitHub'],
+    span: '',
+  },
+];
+---
+
+<section class="py-24 border-t border-surface-variant" id="projects">
+  <header class="mb-xl text-center md:text-left">
+    <h1 class="font-headline text-headline-xl-mobile md:text-headline-xl text-on-surface mb-sm">
+      [ Projects_Showcase ]
+    </h1>
+    <p class="font-body text-body-lg text-on-surface-variant max-w-2xl">
+      A curated selection of high-performance backend systems, distributed architectures, and developer tools.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+    {projects.map((project) => (
+      <article class:list={[
+        'glass-card rounded-lg p-md flex flex-col gap-sm border border-surface-variant transition-all duration-300 terminal-glow group relative overflow-hidden',
+        project.span,
+      ]}>
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-tertiary opacity-50 group-hover:opacity-100 transition-opacity"></div>
+        <header class="flex justify-between items-start mb-base">
+          <div>
+            <span class="font-mono text-mono-code text-on-surface-variant">{project.id}</span>
+            <h2 class="font-headline text-headline-md text-on-surface mt-base">{project.title}</h2>
+          </div>
+          <span class="material-symbols-outlined text-secondary">{project.icon}</span>
+        </header>
+
+        {project.twoCol ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-md flex-grow">
+            <div>
+              <p class="font-body text-body-md text-on-surface-variant mb-sm">{project.description}</p>
+              <div class="flex flex-wrap gap-xs mb-sm">
+                {project.tags.map((tag) => (
+                  <span class:list={[
+                    'font-mono text-mono-label text-xs bg-surface-container px-xs py-base rounded border border-surface-variant',
+                    `text-${tag.color}`,
+                  ]}>
+                    {tag.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div class="bg-surface-container-lowest p-sm rounded border border-surface-variant flex flex-col justify-center">
+              {project.stats.map((stat, i) => (
+                <div class:list={[i < project.stats.length - 1 ? 'mb-base' : '']}>
+                  <div class="flex justify-between items-center mb-base">
+                    <span class="font-mono text-caption text-on-surface-variant">{stat.label}</span>
+                    <span class:list={['font-mono text-caption', `text-${stat.color}`]}>{stat.value}</span>
+                  </div>
+                  {stat.width && (
+                    <div class="w-full bg-surface-variant rounded-full h-1.5 mb-xs">
+                      <div class="bg-tertiary h-1.5 rounded-full" style={`width: ${stat.width}`}></div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <>
+            <p class="font-body text-body-md text-on-surface-variant flex-grow">{project.description}</p>
+            <div class="flex flex-wrap gap-xs mb-sm">
+              {project.tags.map((tag) => (
+                <span class:list={[
+                  'font-mono text-mono-label text-xs bg-surface-container px-xs py-base rounded border border-surface-variant',
+                  `text-${tag.color}`,
+                ]}>
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+            <div class="bg-surface-container-lowest p-sm rounded border border-surface-variant mb-sm">
+              {project.stats.map((stat, i) => (
+                <div class:list={[i < project.stats.length - 1 ? 'mb-base' : '']}>
+                  <div class="flex justify-between items-center mb-base">
+                    <span class="font-mono text-caption text-on-surface-variant">{stat.label}</span>
+                    <span class:list={['font-mono text-caption', `text-${stat.color}`]}>{stat.value}</span>
+                  </div>
+                  {stat.width && (
+                    <div class="w-full bg-surface-variant rounded-full h-1.5 mb-xs">
+                      <div class="bg-tertiary h-1.5 rounded-full" style={`width: ${stat.width}`}></div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        <footer class="flex gap-sm mt-auto pt-sm border-t border-surface-variant">
+          {project.links.map((link) => (
+            <a class="font-mono text-mono-label text-on-surface hover:text-secondary transition-colors flex items-center gap-base" href="#">
+              <span class="material-symbols-outlined text-sm">{link === 'GitHub' ? 'code' : 'menu_book'}</span>
+              {link}
+            </a>
+          ))}
+        </footer>
+      </article>
+    ))}
+  </div>
+</section>
