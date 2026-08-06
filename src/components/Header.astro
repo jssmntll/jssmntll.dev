@@ -1,72 +1,180 @@
 ---
 const navLinks = [
-  { href: '#home', label: '/home', section: 'home' },
-  { href: '#projects', label: '/projects', section: 'projects' },
-  { href: '#experience', label: '/experience', section: 'experience' },
-  { href: '#skills', label: '/skills', section: 'skills' },
-  { href: '#contact', label: '/contact', section: 'contact' },
+  { href: "#home", label: "/home", section: "home" },
+  { href: "#projects", label: "/projects", section: "projects" },
+  { href: "#experience", label: "/experience", section: "experience" },
+  { href: "#skills", label: "/skills", section: "skills" },
+  { href: "#contact", label: "/contact", section: "contact" },
 ];
 ---
 
-<header class="bg-primary-container border-b border-surface-variant flex justify-between items-center w-full px-md py-xs max-w-container-max mx-auto top-0 z-50 sticky">
+<header
+  class="bg-primary-container border-b border-surface-variant flex justify-between items-center w-full px-sm md:px-md py-xs max-w-container-max mx-auto top-0 z-50 sticky"
+>
   <div class="font-headline text-headline-md font-bold text-secondary">
-    [dev_root]
+    [jssmntll]
   </div>
+
   <nav class="hidden md:flex gap-md font-mono text-mono-label">
-    {navLinks.map((link) => (
-      <a
-        href={link.href}
-        data-nav-link={link.section}
-        class:list={[
-          'nav-link border-b-2 pb-1 transition-all duration-200',
-          link.section === 'home'
-            ? 'text-secondary border-secondary drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]'
-            : 'text-on-primary-container hover:text-tertiary border-transparent',
-        ]}
-      >
-        {link.label}
-      </a>
-    ))}
+    {
+      navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-nav-link={link.section}
+          class:list={[
+            "nav-link border-b-2 pb-1 transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary",
+            link.section === "home"
+               ? "text-secondary border-secondary drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]"
+              : "text-on-surface-variant hover:text-tertiary border-transparent",
+          ]}
+        >
+          {link.label}
+        </a>
+      ))
+    }
   </nav>
+
   <div class="hidden md:flex items-center">
-    <span class="material-symbols-outlined text-on-primary-container hover:text-secondary cursor-pointer transition-colors">
+    <span
+      class="material-symbols-outlined text-on-primary-container hover:text-secondary cursor-pointer transition-colors"
+    >
       terminal
     </span>
   </div>
+
+  <button
+    id="mobile-menu-toggle"
+    class="md:hidden flex items-center justify-center w-11 h-11 rounded border border-surface-variant hover:border-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+    aria-label="Open navigation menu"
+    aria-expanded="false"
+  >
+    <span class="material-symbols-outlined text-on-surface text-2xl">menu</span>
+  </button>
 </header>
 
+<div
+  id="mobile-menu-overlay"
+  class="fixed inset-0 z-40 bg-background/95 backdrop-blur-sm hidden md:hidden"
+  aria-hidden="true"
+>
+  <nav class="flex flex-col items-center justify-center h-full gap-gutter font-mono text-mono-label">
+    {
+      navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-mobile-nav-link={link.section}
+          class="text-on-surface-variant hover:text-secondary transition-colors text-headline-md py-xs px-md min-h-[44px] flex items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+        >
+          {link.label}
+        </a>
+      ))
+    }
+  </nav>
+</div>
+
 <script>
+  function initMobileNav() {
+    const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement;
+    const overlay = document.getElementById('mobile-menu-overlay') as HTMLDivElement;
+    const icon = toggle?.querySelector('.material-symbols-outlined') as HTMLSpanElement;
+    const mobileLinks = document.querySelectorAll('[data-mobile-nav-link]');
+
+    if (!toggle || !overlay) return;
+
+    function open() {
+      overlay.classList.remove('hidden');
+      overlay.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close navigation menu');
+      if (icon) icon.textContent = 'close';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      overlay.classList.add('hidden');
+      overlay.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation menu');
+      if (icon) icon.textContent = 'menu';
+      document.body.style.overflow = '';
+    }
+
+    toggle.addEventListener('click', () => {
+      overlay.classList.contains('hidden') ? open() : close();
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener('click', () => close());
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+        close();
+        toggle.focus();
+      }
+    });
+  }
+
   function initScrollSpy() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('[data-nav-link]');
+    const sections = document.querySelectorAll("section[id]");
+    const desktopLinks = document.querySelectorAll("[data-nav-link]");
+    const mobileLinks = document.querySelectorAll("[data-mobile-nav-link]");
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            navLinks.forEach((link) => {
-              const linkSection = link.getAttribute('data-nav-link');
+            const id = entry.target.getAttribute("id");
+            const updateActive = (link: Element) => {
+              const linkSection = link.getAttribute("data-nav-link") || link.getAttribute("data-mobile-nav-link");
               if (linkSection === id) {
-                link.classList.add('text-secondary', 'border-secondary', 'drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]');
-                link.classList.remove('text-on-primary-container', 'border-transparent');
+                link.classList.add(
+                  "text-secondary",
+                  "border-secondary",
+                  "drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]",
+                );
+                link.classList.remove(
+                  "text-on-primary-container",
+                  "text-on-surface-variant",
+                  "border-transparent",
+                );
               } else {
-                link.classList.remove('text-secondary', 'border-secondary', 'drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]');
-                link.classList.add('text-on-primary-container', 'border-transparent');
+                link.classList.remove(
+                  "text-secondary",
+                  "border-secondary",
+                  "drop-shadow-[0_0_8px_rgba(34,211,238,0.2)]",
+                );
+                if (link.hasAttribute("data-nav-link")) {
+                  link.classList.add("text-on-surface-variant", "border-transparent");
+                } else if (link.hasAttribute("data-mobile-nav-link")) {
+                  link.classList.add("text-on-surface-variant");
+                }
               }
-            });
+            };
+            desktopLinks.forEach(updateActive);
+            mobileLinks.forEach(updateActive);
           }
         });
       },
       {
-        rootMargin: '-20% 0px -70% 0px',
+        rootMargin: "-20% 0px -70% 0px",
         threshold: 0,
-      }
+      },
     );
 
     sections.forEach((section) => observer.observe(section));
   }
 
-  document.addEventListener('astro:page-load', initScrollSpy);
-  document.addEventListener('DOMContentLoaded', initScrollSpy);
+  document.addEventListener("astro:page-load", () => {
+    initMobileNav();
+    initScrollSpy();
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    initMobileNav();
+    initScrollSpy();
+  });
 </script>

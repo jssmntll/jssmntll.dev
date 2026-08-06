@@ -1,16 +1,21 @@
 ---
 import { getCollection } from 'astro:content';
 
-const experiences = (await getCollection('experience'));
+const experiences = (await getCollection('experience'))
+  .sort((a, b) => {
+    const yearA = parseInt(a.data.period.split(' - ')[0]);
+    const yearB = parseInt(b.data.period.split(' - ')[0]);
+    return yearB - yearA;
+  });
 ---
 
 <section class="py-24 border-t border-surface-variant" id="experience">
   <header class="mb-xl text-center md:text-left">
-    <h1 class="font-headline text-headline-xl-mobile md:text-headline-xl text-on-surface mb-sm">
+    <h2 class="font-headline text-headline-xl-mobile md:text-headline-xl text-on-surface mb-sm">
       [ Experience_Log ]
-    </h1>
-    <p class="font-mono text-mono-code text-on-surface-variant max-w-2xl">
-      Career trajectory and professional milestones across systems and backend engineering.
+    </h2>
+    <p class="font-body text-body-lg text-on-surface-variant max-w-2xl">
+      Career trajectory across systems engineering and backend development — 2017 to present.
     </p>
   </header>
 
@@ -18,7 +23,7 @@ const experiences = (await getCollection('experience'));
     {experiences.map((exp, i) => (
       <article
         class:list={[
-          'exp-entry relative rounded-lg border overflow-hidden transition-all duration-500',
+          'exp-entry relative rounded-lg border overflow-hidden transition-colors duration-500',
           exp.data.current
             ? 'bg-surface-container-high border-tertiary/30 shadow-[0_0_20px_rgba(77,224,130,0.08)]'
             : 'bg-surface-container-low border-surface-variant hover:border-outline-variant',
@@ -84,15 +89,21 @@ const experiences = (await getCollection('experience'));
 
 <style>
   .exp-entry {
-    opacity: 0;
-    transform: translateY(12px);
-    animation: revealEntry 0.5s ease-out forwards;
+    opacity: 1;
   }
 
-  @keyframes revealEntry {
-    to {
-      opacity: 1;
-      transform: translateY(0);
+  @media (prefers-reduced-motion: no-preference) {
+    .exp-entry {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: revealEntry 0.5s ease-out forwards;
+    }
+
+    @keyframes revealEntry {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 </style>

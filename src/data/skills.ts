@@ -26,43 +26,45 @@ export interface DevTool {
 }
 
 export const languages: Language[] = [
-  { name: 'Go', level: '90%' },
-  { name: 'Python', level: '85%' },
-  { name: 'SQL', level: '95%' },
-  { name: 'C++', level: '60%' },
+  { name: 'PHP', level: '90%' },
+  { name: 'Laravel', level: '90%' },
+  { name: 'PostgreSQL', level: '85%' },
+  { name: 'MySQL', level: '80%' },
+  { name: 'Go', level: '35%' },
 ];
 
 export const databases: Database[] = [
   { name: 'PostgreSQL', icon: 'database' },
+  { name: 'MySQL', icon: 'database' },
   { name: 'Redis', icon: 'memory' },
 ];
 
 export const messaging: Messaging[] = [
-  { name: 'Kafka', icon: 'sync_alt' },
-  { name: 'RabbitMQ', icon: 'mark_email_unread' },
+  { name: 'Redis Queue', icon: 'sync_alt' },
+  { name: 'Bucardo', icon: 'mark_email_unread' },
 ];
 
 export const infrastructure: Infrastructure[] = [
   {
-    name: 'AWS',
-    description: 'Core services deployment and management.',
-    tags: ['EC2', 'S3', 'RDS'],
+    name: 'Docker',
+    description: 'Containerization and orchestration for development and production environments.',
+    level: '85%',
   },
   {
-    name: 'Kubernetes',
-    description: 'Container orchestration and cluster administration.',
+    name: 'Linux',
+    description: 'Server administration, shell scripting, and system optimization.',
     level: '80%',
   },
   {
-    name: 'Terraform',
-    description: 'Infrastructure as Code (IaC) provisioning.',
-    level: '75%',
+    name: 'Cloud & CI/CD',
+    description: 'Cloud-native deployments, database replication, and automated workflows.',
+    tags: ['AWS', 'Bucardo', 'GitHub Actions'],
   },
 ];
 
 export const devTools: DevTool[] = [
-  { name: 'Neovim', icon: 'code' },
+  { name: 'VSCode', icon: 'code' },
   { name: 'Git', icon: 'commit' },
   { name: 'Docker', icon: 'view_in_ar' },
-  { name: 'Tmux', icon: 'terminal' },
+  { name: 'Linux', icon: 'terminal' },
 ];

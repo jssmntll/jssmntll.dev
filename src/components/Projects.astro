@@ -1,106 +1,136 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
-const projects = (await getCollection('projects'))
-  .sort((a, b) => a.data.order - b.data.order);
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
 ---
 
 <section class="py-24 border-t border-surface-variant" id="projects">
   <header class="mb-xl text-center md:text-left">
-    <h1 class="font-headline text-headline-xl-mobile md:text-headline-xl text-on-surface mb-sm">
-      [ Projects_Showcase ]
-    </h1>
+    <h2
+      class="font-headline text-headline-xl-mobile md:text-headline-xl text-on-surface mb-sm"
+    >
+      [ Project_Showcase ]
+    </h2>
     <p class="font-body text-body-lg text-on-surface-variant max-w-2xl">
-      A curated selection of high-performance backend systems, distributed architectures, and developer tools.
+      High-impact systems I've architected and shipped.
     </p>
   </header>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-    {projects.map((project) => (
-      <article class:list={[
-        'glass-card rounded-lg p-md flex flex-col gap-sm border border-surface-variant transition-all duration-300 terminal-glow group relative overflow-hidden',
-        project.data.featured ? 'lg:col-span-2' : '',
-      ]}>
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-tertiary opacity-50 group-hover:opacity-100 transition-opacity"></div>
-        <header class="flex justify-between items-start mb-base">
-          <div>
-            <span class="font-mono text-mono-code text-on-surface-variant">{String(project.data.order).padStart(2, '0')}</span>
-            <h2 class="font-headline text-headline-md text-on-surface mt-base">{project.data.title}</h2>
-          </div>
-          <span class="material-symbols-outlined text-secondary">{project.data.icon}</span>
-        </header>
-
-        {project.data.featured ? (
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-md flex-grow">
+    {
+      projects.map((project) => (
+        <article class="glass-card rounded-lg p-sm flex flex-col gap-xs border border-surface-variant transition-shadow transition-colors duration-300 terminal-glow group relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-tertiary opacity-50 group-hover:opacity-100 transition-opacity" />
+          <header class="flex justify-between items-start mb-xs">
             <div>
-              <p class="font-body text-body-md text-on-surface-variant mb-sm">{project.body}</p>
-              <div class="flex flex-wrap gap-xs mb-sm">
+              <span class="font-mono text-mono-code text-on-surface-variant">
+                {String(project.data.order).padStart(2, "0")}
+              </span>
+              <h2 class="font-headline text-headline-md text-on-surface mt-base">
+                {project.data.title}
+              </h2>
+            </div>
+            <span class="material-symbols-outlined text-secondary">
+              {project.data.icon}
+            </span>
+          </header>
+
+          {project.data.featured ? (
+            <>
+              <p class="font-body text-body-md text-on-surface-variant">
+                {project.body}
+              </p>
+              <div class="flex flex-wrap gap-xs">
                 {project.data.tags.map((tag) => (
-                  <span class:list={[
-                    'font-mono text-mono-label text-xs bg-surface-container px-xs py-base rounded border border-surface-variant',
-                    `text-${tag.color}`,
-                  ]}>
+                  <span
+                    class:list={[
+                      "font-mono text-mono-label text-xs bg-surface-container px-xs py-base rounded border border-surface-variant",
+                      `text-${tag.color}`,
+                    ]}
+                  >
                     {tag.name}
                   </span>
                 ))}
               </div>
-            </div>
-            <div class="bg-surface-container-lowest p-sm rounded border border-surface-variant flex flex-col justify-center">
-              {project.data.stats.map((stat, i) => (
-                <div class:list={[i < project.data.stats.length - 1 ? 'mb-base' : '']}>
-                  <div class="flex justify-between items-center mb-base">
-                    <span class="font-mono text-caption text-on-surface-variant">{stat.label}</span>
-                    <span class:list={['font-mono text-caption', `text-${stat.color}`]}>{stat.value}</span>
+              <div class="bg-surface-container-lowest px-sm py-xs rounded border border-surface-variant flex flex-row gap-md items-center justify-around">
+                {project.data.stats.map((stat) => (
+                  <div class="text-center">
+                    <span
+                      class:list={[
+                        "font-mono text-mono-code font-bold",
+                        `text-${stat.color}`,
+                      ]}
+                    >
+                      {stat.value}
+                    </span>
+                    <span class="font-mono text-caption text-on-surface-variant block mt-base">
+                      {stat.label}
+                    </span>
                   </div>
-                  {stat.width && (
-                    <div class="w-full bg-surface-variant rounded-full h-1.5 mb-xs">
-                      <div class="bg-tertiary h-1.5 rounded-full" style={`width: ${stat.width}`}></div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <>
-            <p class="font-body text-body-md text-on-surface-variant flex-grow">{project.body}</p>
-            <div class="flex flex-wrap gap-xs mb-sm">
-              {project.data.tags.map((tag) => (
-                <span class:list={[
-                  'font-mono text-mono-label text-xs bg-surface-container px-xs py-base rounded border border-surface-variant',
-                  `text-${tag.color}`,
-                ]}>
-                  {tag.name}
-                </span>
-              ))}
-            </div>
-            <div class="bg-surface-container-lowest p-sm rounded border border-surface-variant mb-sm">
-              {project.data.stats.map((stat, i) => (
-                <div class:list={[i < project.data.stats.length - 1 ? 'mb-base' : '']}>
-                  <div class="flex justify-between items-center mb-base">
-                    <span class="font-mono text-caption text-on-surface-variant">{stat.label}</span>
-                    <span class:list={['font-mono text-caption', `text-${stat.color}`]}>{stat.value}</span>
-                  </div>
-                  {stat.width && (
-                    <div class="w-full bg-surface-variant rounded-full h-1.5 mb-xs">
-                      <div class="bg-tertiary h-1.5 rounded-full" style={`width: ${stat.width}`}></div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <p class="font-body text-body-md text-on-surface-variant flex-grow">
+                {project.body}
+              </p>
+              <div class="flex flex-wrap gap-xs mb-sm">
+                {project.data.tags.map((tag) => (
+                  <span
+                    class:list={[
+                      "font-mono text-mono-label text-xs bg-surface-container px-xs py-base rounded border border-surface-variant",
+                      `text-${tag.color}`,
+                    ]}
+                  >
+                    {tag.name}
+                  </span>
+                ))}
+              </div>
+              <div class="flex gap-md font-mono text-mono-code mb-sm">
+                {project.data.stats.map((stat) => (
+                  <span>
+                    <span class="text-on-surface-variant">{stat.label} </span>
+                    <span class:list={[`text-${stat.color}`]}>
+                      {stat.value}
+                    </span>
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
 
-        <footer class="flex gap-sm mt-auto pt-sm border-t border-surface-variant">
-          {project.data.links.map((link) => (
-            <a class="font-mono text-mono-label text-on-surface hover:text-secondary transition-colors flex items-center gap-base" href={link.href}>
-              <span class="material-symbols-outlined text-sm">{link.icon}</span>
-              {link.label}
-            </a>
-          ))}
-        </footer>
-      </article>
-    ))}
+          <footer class="flex gap-sm mt-auto pt-xs border-t border-surface-variant">
+            {project.data.links.map((link) =>
+              link.href !== "#" ? (
+                <a
+                  class="font-mono text-mono-label text-on-surface hover:text-secondary transition-colors flex items-center gap-base focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="material-symbols-outlined text-sm">
+                    {link.icon}
+                  </span>
+                  {link.label}
+                </a>
+              ) : (
+                <span
+                  class="font-mono text-mono-label text-on-surface-variant flex items-center gap-base cursor-default select-none"
+                  title="Link coming soon"
+                >
+                  <span class="material-symbols-outlined text-sm">
+                    {link.icon}
+                  </span>
+                  {link.label}
+                </span>
+              ),
+            )}
+          </footer>
+        </article>
+      ))
+    }
   </div>
 </section>

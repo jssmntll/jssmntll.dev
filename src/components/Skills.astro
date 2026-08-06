@@ -4,11 +4,11 @@ import { languages, databases, messaging, infrastructure, devTools } from '../da
 
 <section class="py-24 border-t border-surface-variant" id="skills">
   <header class="mb-xl">
-    <h1 class="font-headline text-headline-xl text-secondary mb-xs">
+    <h2 class="font-headline text-headline-xl text-secondary mb-xs">
       <span class="braces">[</span> Technical Skills Matrix <span class="braces">]</span>
     </h1>
-    <p class="font-mono text-mono-code text-on-surface-variant max-w-2xl">
-      System resources and proficiencies monitored across backend languages, infrastructure, databases, and tooling.
+    <p class="font-body text-body-lg text-on-surface-variant max-w-2xl">
+      Core proficiencies across backend languages, databases, infrastructure, and development tooling.
     </p>
   </header>
 
@@ -31,7 +31,7 @@ import { languages, databases, messaging, infrastructure, devTools } from '../da
               <div class="w-2/3 flex items-center gap-2">
                 <span class="text-on-surface-variant text-xs opacity-50">[</span>
                 <div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
-                  <div class="h-full skill-bar-fill" style={`width: ${lang.level}`}></div>
+                  <div class="h-full skill-bar-fill" style={`transform: scaleX(${parseInt(lang.level) / 100})`}></div>
                 </div>
                 <span class="text-on-surface-variant text-xs opacity-50">]</span>
               </div>
@@ -111,7 +111,7 @@ import { languages, databases, messaging, infrastructure, devTools } from '../da
     </div>
 
     <div class="md:col-span-12">
-      <h2 class="font-headline text-headline-lg text-on-surface mb-md mt-sm">
+      <h3 class="font-headline text-headline-lg text-on-surface mb-md mt-sm">
         <span class="braces">[</span> DevTools Toolbox <span class="braces">]</span>
       </h2>
       <div class="flex flex-wrap gap-sm font-mono text-mono-code">

@@ -1,8 +1,8 @@
 ---
-role: "Systems Administrator"
-company: "Data Center Ltd"
-period: "2018 - 2020"
+role: "Backend Developer"
+company: "Grupo Sysven C.A."
+period: "2022 - 2024"
 current: false
 ---
 
-Managed 200+ production servers across multiple data centers. Automated deployment pipelines reducing release time by 60%. Maintained 99.99% uptime for critical services.
+Developed comprehensive solutions for data management, bridging local servers and cloud infrastructure. Architected database replication workflows using Bucardo to ensure data integrity and disaster recovery. Reduced system downtime through proactive monitoring and resolution of critical technical issues in PostgreSQL environments.

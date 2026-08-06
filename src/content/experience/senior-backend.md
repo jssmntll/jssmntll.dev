@@ -1,8 +1,8 @@
 ---
-role: "Senior Backend Engineer"
-company: "Tech Corp"
-period: "2022 - Present"
+role: "Freelance Software Engineer"
+company: "Independent"
+period: "2024 - Present"
 current: true
 ---
 
-Leading the architecture and development of distributed microservices handling 10M+ daily requests. Designed and implemented a custom API gateway reducing latency by 40%. Mentoring junior engineers on system design principles.
+Architecting scalable web solutions and API designs using PHP (Laravel) and cloud-native technologies. Building full-stack applications with PostgreSQL, Docker, and Redis for clients across Latin America. Expanding expertise in Go for high-concurrency microservices.

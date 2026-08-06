@@ -1,8 +1,8 @@
 ---
 role: "Backend Developer"
-company: "Startup Inc"
-period: "2020 - 2022"
-current: false
+company: "Baja Foundry"
+period: "2025 - Present"
+current: true
 ---
 
-Built and maintained RESTful APIs serving 5M+ daily active users. Implemented real-time analytics pipeline processing 2TB of data daily. Reduced infrastructure costs by 30% through optimization.
+Engineered and migrated core reservation engines for National Car Rental and Enterprise Rent-A-Car, ensuring seamless transitions between Laravel versions. Implemented high-performance caching strategies and Queue Jobs using Redis. Designed and maintained external service integrations and API backward compatibility to ensure 100% uptime during system upgrades. Managed transactional communication workflows using Sendgrid.

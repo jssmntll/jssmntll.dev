@@ -1,23 +1,33 @@
 ---
-import { socials } from '../data/socials';
+import { socials } from "../data/socials";
 
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-surface-dim border-t border-surface-variant flex flex-col md:flex-row justify-between items-center w-full px-md py-lg max-w-container-max mx-auto mt-auto">
+<footer
+  class="bg-surface-dim border-t border-surface-variant flex flex-col md:flex-row justify-between items-center w-full px-md py-lg max-w-container-max mx-auto mt-auto"
+>
   <div class="font-mono text-mono-label text-on-surface-variant mb-4 md:mb-0">
-    &copy; {currentYear} Built with Astro &amp; Tailwind.css
+    &copy; {currentYear} Jesús Mantilla
   </div>
   <div class="flex gap-md font-mono text-mono-label text-on-surface-variant">
-    {socials.map((social) => (
-      <a
-        class="hover:text-secondary hover:underline decoration-secondary transition-all"
-        href={social.href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {social.name}
-      </a>
-    ))}
+    {
+      socials.map((social) => (
+        social.href !== '#' ? (
+          <a
+            class="hover:text-secondary hover:underline decoration-secondary transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {social.name}
+          </a>
+        ) : (
+          <span class="text-on-surface-variant/50 cursor-default select-none">
+            {social.name}
+          </span>
+        )
+      ))
+    }
   </div>
 </footer>
