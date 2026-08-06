@@ -20,6 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# cloudflare
+.wrangler/
+
 # design system docs (generated, not source)
 PRODUCT.md
 DESIGN.md
