@@ -22,6 +22,7 @@ pnpm-debug.log*
 
 # cloudflare
 .wrangler/
+pnpm-workspace.yaml
 
 # design system docs (generated, not source)
 PRODUCT.md
