@@ -317,7 +317,7 @@
         data[key] = value.toString();
       });
 
-      const response = await fetch("https://formspree.io/f/CHANGEME", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
