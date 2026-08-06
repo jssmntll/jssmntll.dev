@@ -20,5 +20,6 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
-.idea/
+# design system docs (generated, not source)
+PRODUCT.md
+DESIGN.md
